@@ -3,28 +3,27 @@
 
 void comptage(int ac, char **av)
 {
-	char ascii[127] = {0};
+	char ascii[126] = {0};
 	int i = 1;
 	int j = 0 ;
-	int compteur = 1;
-	char c;
-
-	while(compteur < ac)
+	int		c = 0;
+	while(i < ac)
 	{
+		j = 0;
 		while(av[i][j])
 		{
-			char c = av[i][j];
+			c = av[i][j];
 			ascii[c] += 1;
 			j++;
 		}
-		compteur ++;
+		i++;
 	}
 	i = 0;
-	while(ascii[i])
+	while(i < 127)
 	{
 		if(ascii[i] > 0)
 		{
-			printf("%c : %d", ascii[i], ascii[i]);
+			printf("%c : %d\n", i, ascii[i]);
 		}
 		i++;
 	}
