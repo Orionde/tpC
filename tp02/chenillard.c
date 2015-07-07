@@ -4,9 +4,6 @@
 #include <unistd.h>
 #include <time.h>
 
-#define ON '*'
-#define OFF '.'
-
 void temporisation(int n)
 {
 	clock_t start, stop ;
@@ -24,34 +21,64 @@ void putstr(char *str)
 
 int main(int ac, char **av)
 {
+	char a = '*';
+	char e = '.';
+	int t = 500;
+	int n = 10;
 	int i = 0;
-	if(ac > 1)
+	if(ac %2 == 1)
 	{
-		while(av[1][i])
+		if(ac > 1)
 		{
-			av[1][i] = OFF;
-			i++;
+			
+			while(i < ac)
+			{
+				if(av[i][0] == '-')
+				{
+					if(av[i][0] == 'a')
+						a = av[i+1][0];
+					if(av[i][0] == 'e')
+						e = av[i+1][0];
+					if(av[i][0] == 't')
+						t = atoi(av[i+1]);
+					if(av[i][0] == 'n')
+						n = atoi(av[i+1]);
+				}
+				else
+					putstr("erreur");
+				i += 2;
+			}
 		}
-		i = 0;
-		while(av[1][i])
-		{
 
-			av[1][i] = ON;
+		char amp[n];
+
+		for(i = 0; i < n; i++)
+			amp[i] = e;
+
+		i = 0;
+
+		while(amp[i])
+		{
+			amp[i] = a;
 			if(i > 0)
-				av[1][i - 1] = OFF;
+				amp[i - 1] = e;
 			i++;
 			write(1, "\r", 1);
-			putstr(av[1]);
-			temporisation(250);
-			if(av[1][i] == 0)
+			putstr(amp);
+			temporisation(t);
+			if(amp[i] == 0)
 			{
-				av[1][i - 1] = OFF;
+				amp[i - 1] = e;
 				i = 0;
 			}
 		}
 		write(1, "\n", 1);
-
 		return(0);
+	}
+	else
+	{
+		putstr("Usage : chenillard_v2 [-a <car_ampoule_allumee>] [-e <car_ampoule_eteinte>] [-t <temporisation>] [-n <nombre_d_ampoules>]");
+		write(1, "\n", 1);
 	}
 	return(1);
 }
