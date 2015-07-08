@@ -7,6 +7,8 @@
 void check(char *a, char *e, int *t, int *n, int nb, char **str);
 void temporisation(int n);
 void putstr(char *str);
+void chenillard(int nb, char **str);
+
 void chenillard(int nb, char **str)
 {
 
@@ -21,7 +23,6 @@ void chenillard(int nb, char **str)
 		{
 			check(&a, &e, &t, &n, nb, str);
 		}
-			putchar(str[1][0]);
 
 		char amp[n];
 
@@ -96,7 +97,6 @@ void putstr(char *str)
 
 int main(int ac, char **av)
 {
-	//chenillard(ac, av);
-	putchar(av[1][0]);
+	chenillard(ac, av);
 	return(0);
 }
