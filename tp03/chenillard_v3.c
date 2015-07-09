@@ -8,43 +8,38 @@
 void temporisation(int n);
 void putstr(char *str);
 
-void chenillard(int nb)
+unsigned char inversion(unsigned char nb)
+{
+	return ~nb;
+}
+
+void chenillard()
 {
 	int and  = 1; //Ce paramètre servira à faire le et, pour voir quels bits sont à 1.
 	int res; //Pour voir si le et fait 0 ou 1;
-	unsigned char inter = 10;
-	unsigned char rampe[] = "********";
+	unsigned char inter = 0xAA;
+	unsigned char rampe[8 * sizeof(inter) + 1] = {0};
 	int i;
 
-	/*for(i = 0; i < 8; i++)
-	{
-		rampe[i] = '1';
-	}*/
-	//putstr(rampe);
-
 	i = 7;
-	while(i > -1)
+	while(1)
 	{
-		res = inter & and;
-		if(res == and )
-		{	
-			rampe[i] = '*';
-			//printf("* : %d\n",i);
-		}
-			
-		else
+		while(i > -1)
 		{
-			rampe[i] = '.';
-			//printf(". : %d\n",i);
+			res = inter & and;
+			if(res == and )
+				rampe[i] = '*';
+			else
+				rampe[i] = '.';
+			and <<= 1;
+			i--;
 		}
-
-
-		and <<= 1;
-		i--;
+		printf("\r%s", rampe);
+		temporisation(250);
+		fflush(stdout);
+		i = 7;
+		inversion(inter);
 	}
-	printf("\n%s\n", rampe);
-
-
 }
 
 void temporisation(int n)
@@ -64,6 +59,6 @@ void putstr(char *str)
 
 int main(void)
 {
-	chenillard(8);
+	chenillard();
 	return(0);
 }
