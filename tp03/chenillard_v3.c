@@ -19,19 +19,11 @@ void initRampe(t_inter inter, t_inter *rampe);
 
 void mvRight(t_inter *inter)
 {
-	t_inter inter2;
-	//t_inter ajout = 1;
-	/*while(ajout < sizeof(inter))
-	{
-		ajout >>= 1;
-	}*/
-	printf("inter : %d\ninter2 : %d\n\n", *inter, inter2);
-	inter2 = *inter;
+	t_inter inter2 = *inter;
 	*inter >>= 1;
-	if(inter2 < *inter)
+	if(*inter < inter2)
 	{
 		*inter += 128;
-		printf("+128");
 	}
 }
 void mvLeft(t_inter *inter)
@@ -49,7 +41,7 @@ void putRampe(t_inter *rampe)
 {
 	printf("\r%s", rampe);
 	fflush(stdout);
-	temporisation(250);
+	temporisation(500);
 }
 
 void initRampe(t_inter inter, t_inter *rampe)
@@ -62,9 +54,9 @@ void initRampe(t_inter inter, t_inter *rampe)
 	{
 		res = inter & and;
 		if(res == and )
-			rampe[i] = '*';
+			rampe[i] = ON;
 		else
-			rampe[i] = '.';
+			rampe[i] = OFF;
 		and <<= 1;
 		i--;
 	}
@@ -94,13 +86,11 @@ int main(void)
 {
 	t_inter inter = 7;
 	t_inter rampe[8 * sizeof(inter) + 1] = {0};
-	int i = 0;
-	while(i < inter)
+	while(1)
 	{
-		//initRampe(inter, rampe);
-		//putRampe(rampe);
+		initRampe(inter, rampe);
+		putRampe(rampe);
 		mvRight(&inter);
-		i++;
 	}
 	return(0);
 }
