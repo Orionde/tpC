@@ -1,0 +1,2 @@
+Pour afficher en binaire dans vim : %!xxd
+Pour revenir en mode normal : %!xxd -r

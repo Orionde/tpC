@@ -19,12 +19,13 @@ void initRampe(t_inter inter, t_inter *rampe);
 
 void mvRight(t_inter *inter)
 {
-	t_inter inter2 = *inter;
-	*inter >>= 1;
-	if(*inter < inter2)
+	if(*inter % 2 == 1)
 	{
+		*inter >>= 1;
 		*inter += 128;
 	}
+	else
+		*inter >>=1;
 }
 void mvLeft(t_inter *inter)
 {
@@ -84,7 +85,7 @@ void putstr(char *str)
 
 int main(void)
 {
-	t_inter inter = 7;
+	t_inter inter = 1;
 	t_inter rampe[8 * sizeof(inter) + 1] = {0};
 	while(1)
 	{
