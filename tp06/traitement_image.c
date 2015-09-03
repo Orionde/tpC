@@ -2,18 +2,18 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define DEBUG 0  // utilisé en interne dans le module entree_sortie.c 
-#define OK 0  // les 2 codes retour possibles ...
-#define ERREUR 1  // ... de EcrireImagePGM
+#define DEBUG 0
+#define OK 0
+#define ERREUR 1
 
 typedef struct Image
 {
-	unsigned char* pixels ;
-	unsigned int largeur ;
-	unsigned int hauteur ;
+	unsigned char* pixels;
+	unsigned int largeur;
+	unsigned int hauteur;
 } t_image ;
 
-//////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
 
 void miroir(t_image image, char type)
