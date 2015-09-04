@@ -6,10 +6,10 @@ CC = gcc
 
 all : $(BIN)
 $(BIN) : $(OBJECTS)
-	$(CC) -o $(BIN)
+	$(CC) $(OBJECTS) -o $(BIN)
 
 main.o : main.c
-	$(CC) -c main.ci
+	$(CC) -c main.c
 
 traitement.o : traitement.c traitement.h
 	$(CC) -c traitement.c

@@ -19,7 +19,7 @@ int main()
 
 
 	//ecrireImagePGM("truc.pgm", img);
-	afficherImage("truc.pgm");
+	afficherImage("guadalest.pgm");
 
 	//free(img->pixels);
 
