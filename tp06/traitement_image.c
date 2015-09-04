@@ -118,7 +118,7 @@ void degrade(t_image *image)
 
 t_image *creerImage(int largeur, int hauteur)
 {
-	t_image *image;
+	t_image *image = malloc(sizeof(t_image));
 	image->largeur = largeur;
 	image->hauteur = hauteur;
 	image->pixels = malloc((hauteur * largeur + 15) * sizeof(unsigned char));
@@ -131,7 +131,7 @@ int ecrireImagePGM(const char *nomFichier, t_image image)
 {
 	FILE *f =  fopen(nomFichier, "w");
 	fprintf(f, "P5\n%d %d\n255\n", image.largeur, image.hauteur);
-	
+
 	if(f)
 	{
 		fwrite(image.pixels, ((image.hauteur * image.largeur)*sizeof(unsigned char)), 1, f);
@@ -143,41 +143,31 @@ int ecrireImagePGM(const char *nomFichier, t_image image)
 }
 ///////////////////////////////////////////////////////////////////////////////
 
-/*t_image *LireImagePGM(const char* nomFichier)
-{
-	FILE *f = fopen(nomFichier, "w");
-	t_image *image;
-	int largeur = 0;
-	int hauteur = 0;
-	
-	fseek(f, 3, SEEK_SET);
-	fscanf(f, "%d %d", &largeur, &hauteur);
-	
-	image = creerImage(largeur, hauteur);
-	fread(image->pixels, (largeur * hauteur + 1), 1, f);
-	image->hauteur = hauteur;
-	image->largeur = largeur;
-
-	return image;
-
-}*/
-
 t_image *LireImagePGM(const char* nomFichier)
 {
-	FILE *f = fopen(nomFichier, "w");
-	t_image *image;
-	int largeur = 0;
-	int hauteur = 0;
-	
-	fseek(f, 3, SEEK_SET);
-	fscanf(f, "%d %d", &largeur, &hauteur);
-	
-	image = creerImage(largeur, hauteur);
-	fread(image->pixels, (largeur * hauteur + 1), 1, f);
-	image->hauteur = hauteur;
-	image->largeur = largeur;
+	FILE *f = fopen(nomFichier, "r");
+	if(f)
+	{
+		t_image *image;
+		int largeur;
+		int hauteur;
 
-	return image;
+		fseek(f, 3, SEEK_SET);
+		fscanf(f, "%d %d", &largeur, &hauteur);
+
+		printf("%d %d\n", largeur, hauteur);
+
+		image = creerImage(largeur, hauteur);
+
+		fread(image->pixels - 5, ((largeur * hauteur) * sizeof(unsigned char)), 1, f);
+
+		image->hauteur = hauteur;
+		image->largeur = largeur;
+		return image;
+	}
+	else
+		return NULL;
+
 
 }
 
@@ -196,19 +186,19 @@ void afficherImage(char *nomFichier)
 int main()
 {
 	t_image *img = LireImagePGM("guadalest.pgm");
-	
+
 	//img.hauteur = hauteur;
 	//img.largeur = largeur;
-	
+
 	//img.pixels = creerImage(largeur, hauteur);
 	//degrade(img);
-	
+
 	//negatif(img);
 	//miroir(img, 1);
 
 
 	//ecrireImagePGM("truc.pgm", img);
-	//afficherImage("truc.pgm");
+	afficherImage("truc.pgm");
 
 	//free(img->pixels);
 
